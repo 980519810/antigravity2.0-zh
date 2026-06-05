@@ -48,7 +48,7 @@ npm install
 ### 方式二：Git Clone
 
 ```bash
-git clone https://github.com/workkkkkkez00m/antigravity2.0-zh-tw.git
+git clone https://github.com/<owner>/antigravity2.0-zh-tw.git
 cd antigravity2-zh-hant-tw
 npm install
 ```
@@ -66,6 +66,23 @@ npm install
 - 🛡️ **安全備份**：首次安裝時自動備份官方 `app.asar`
 - 📦 **離線運作**：使用本地 `@electron/asar`，不依賴 `npx` 動態下載
 - 🎯 **精準翻譯**：自動避開程式碼區、Terminal、編輯器等不應翻譯的區域
+
+---
+
+## 重要提醒：官方軟體更新後須重新安裝
+
+> ⚠️ **每次 Antigravity 官方釋出更新後，繁體中文介面可能會消失。這是正常現象。**
+
+Antigravity 官方更新時，會重新覆蓋 `app.asar` 檔案，導致先前注入的繁體中文本地化內容被移除。
+
+**這是正常情況，並非套件故障。**
+
+只要在更新後重新執行安裝腳本，即可恢復繁體中文介面：
+
+- **Windows**：雙擊執行 `install-win.bat`
+- **macOS**：雙擊執行 `install-macos.command`
+
+> 💡 建議在每次 Antigravity 更新完成後，養成重新執行安裝腳本的習慣。
 
 ---
 
@@ -323,9 +340,15 @@ node localization_engine.js --restore
 </details>
 
 <details>
-<summary><strong>Antigravity 更新後翻譯不見怎麼辦？</strong></summary>
+<summary><strong>Antigravity 更新後翻譯不見了怎麼辦？</strong></summary>
 
-Antigravity 官方更新時，會重新覆蓋 `app.asar` 檔案，導致本地化失效。解決方式：完全退出 Antigravity → 重新執行安裝腳本 → 重新啟動 Antigravity。
+Antigravity 官方更新時，會重新覆蓋 `app.asar` 檔案，導致先前注入的繁體中文本地化內容被移除。這是正常現象，並非套件故障。
+
+解決方式：
+
+1. 完全退出 Antigravity
+2. 重新執行安裝腳本（Windows：`install-win.bat`；macOS：`install-macos.command`）
+3. 重新啟動 Antigravity，即可恢復繁體中文介面
 </details>
 
 <details>
