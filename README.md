@@ -48,7 +48,7 @@ npm install
 ### 方式二：Git Clone
 
 ```bash
-git clone https://github.com/<owner>/antigravity2-zh-hant-tw.git
+git clone https://github.com/workkkkkkez00m/antigravity2.0-zh-tw.git
 cd antigravity2-zh-hant-tw
 npm install
 ```
@@ -293,29 +293,6 @@ node localization_engine.js --restore
 - SVG / Canvas 圖形元素
 - Debug Console
 - Suggest Widget（自動完成選單）
-
----
-
-## 專案結構
-
-```
-antigravity2-zh-hant-tw/
-├── localization_engine.js     # 核心本地化引擎（ASAR 解包／注入／重新打包）
-├── package.json               # 專案設定與 @electron/asar 依賴宣告
-├── dicts/                     # 翻譯字典目錄（JSON 格式）
-│   ├── common.json            # 通用 UI 元件（116 個詞條）
-│   ├── menu_nav.json          # 選單與導覽（55 個詞條）
-│   ├── page_agents.json       # Agent 管理頁面（26 個詞條）
-│   ├── page_mcp_knowledge.json # MCP／知識庫頁面（12 個詞條）
-│   ├── page_settings.json     # 設定頁面（366 個詞條）
-│   └── page_workspaces.json   # 工作區頁面（5 個詞條）
-├── install-win.bat            # Windows 安裝入口
-├── restore-win.bat            # Windows 還原入口
-├── install-macos.command      # macOS 安裝入口
-├── restore-macos.command      # macOS 還原入口
-├── docs/                      # 專案開發文件
-└── LICENSE                    # Apache License 2.0
-```
 
 ---
 
