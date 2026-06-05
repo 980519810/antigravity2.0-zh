@@ -4,7 +4,7 @@ const child_process = require('child_process');
 
 const PROJECT_ID = 'antigravity2-zh-hant-tw';
 const PROJECT_NAME = 'Antigravity 2.0 繁體中文套件';
-const ENGINE_VERSION = '1.0.0';
+const ENGINE_VERSION = '1.0.1';
 const SIGNATURE = 'ZH-HANT-TW';
 
 const SIGNATURE_START = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION START --- */';
@@ -216,11 +216,27 @@ function generateJs() {
                 for (const n of m.addedNodes) translateNode(n);
             } else if (m.type === 'characterData') {
                 translateNode(m.target);
+            } else if (m.type === 'attributes') {
+                const el = m.target;
+                if (el && el.nodeType === Node.ELEMENT_NODE && !isInBlockedZone(el)) {
+                    const attr = m.attributeName;
+                    if (attr === 'title' || attr === 'aria-label' || attr === 'placeholder') {
+                        const v = el.getAttribute(attr);
+                        if (v) {
+                            const t = norm(v);
+                            if (map.has(t)) {
+                                el.setAttribute(attr, map.get(t));
+                            } else if (lowerMap.has(t.toLowerCase())) {
+                                el.setAttribute(attr, lowerMap.get(t.toLowerCase()));
+                            }
+                        }
+                    }
+                }
             }
         }
     });
 
-    const obsOpts = { childList: true, subtree: true, characterData: true };
+    const obsOpts = { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label', 'placeholder'] };
 
     const startEngine = () => {
         const target = document.body || document.documentElement;
@@ -251,6 +267,29 @@ function generateJs() {
     setTimeout(startEngine, 1000);
     setTimeout(startEngine, 3000);
     setTimeout(startEngine, 6000);
+
+    function hoverHandler(e) {
+        try {
+            let el = e.target;
+            if (!el || el.nodeType !== Node.ELEMENT_NODE) return;
+            const tag = el.tagName.toUpperCase();
+            if (BLOCKED_TAGS.includes(tag)) return;
+            if (isInBlockedZone(el)) return;
+            for (const attr of ['title', 'aria-label', 'placeholder']) {
+                const v = el.getAttribute(attr);
+                if (!v) continue;
+                const t = norm(v);
+                if (map.has(t)) {
+                    el.setAttribute(attr, map.get(t));
+                } else if (lowerMap.has(t.toLowerCase())) {
+                    el.setAttribute(attr, lowerMap.get(t.toLowerCase()));
+                }
+            }
+        } catch (e) {}
+    }
+    document.addEventListener('pointerover', hoverHandler, true);
+    document.addEventListener('mouseover', hoverHandler, true);
+    document.addEventListener('focusin', hoverHandler, true);
 })();
 ${SIGNATURE_END}`;
 
@@ -404,7 +443,22 @@ function createMenuTranslationPatch() {
         'Reset Zoom': '重設縮放',
         'Zoom In': '放大',
         'Zoom Out': '縮小',
-        'Toggle Full Screen': '切換全螢幕'
+        'Toggle Full Screen': '切換全螢幕',
+        'Bring All to Front': '將所有視窗移至最前',
+        'Reload': '重新載入',
+        'Force Reload': '強制重新載入',
+        'Actual Size': '實際大小',
+        'Paste and Match Style': '貼上並符合樣式',
+        'Delete': '刪除',
+        'Substitutions': '替換',
+        'Show Substitutions': '顯示替換',
+        'Smart Quotes': '智慧引號',
+        'Smart Dashes': '智慧破折號',
+        'Text Replacement': '文字替換',
+        'Speech': '語音',
+        'Start Speaking': '開始朗讀',
+        'Stop Speaking': '停止朗讀',
+        'Close Window': '關閉視窗'
     };
 
     function translateMenu(items) {
