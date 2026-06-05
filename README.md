@@ -15,6 +15,18 @@
 
 ---
 
+## 使用畫面
+
+### 主介面
+
+![Antigravity 2.0 繁體中文主介面](images/screenshot-main-ui.JPG)
+
+### 設定頁
+
+![Antigravity 2.0 繁體中文設定頁](images/screenshot-settings.JPG)
+
+---
+
 ## 下載方式
 
 ### 方式一：GitHub Releases（推薦）
