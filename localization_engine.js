@@ -114,12 +114,41 @@ function generateJs() {
 
     const jsSource = `${SIGNATURE_START}
 (() => {
+    if (window.__ANTIGRAVITY_ZH_TW_LOADED__) return;
+    window.__ANTIGRAVITY_ZH_TW_LOADED__ = true;
+
+    const injectStyle = () => {
+        if (!document.getElementById('ag-zh-hant-tooltip-style')) {
+            const style = document.createElement('style');
+            style.id = 'ag-zh-hant-tooltip-style';
+            style.textContent = \`
+                .react-tooltip-content-wrapper:not([data-ag-tooltip-ready="true"]),
+                [class*="react-tooltip" i]:not([data-ag-tooltip-ready="true"]) {
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                }
+            \`;
+            const parent = document.head || document.documentElement;
+            if (parent) parent.appendChild(style);
+        }
+    };
+    injectStyle();
+
     const map = new Map(Object.entries(DICT_PLACEHOLDER));
     const lowerMap = new Map();
     for (const [k, v] of map.entries()) lowerMap.set(k.toLowerCase(), v);
 
     const longEntries = REPLACEMENT_ENTRIES_PLACEHOLDER;
     const done = new WeakSet();
+
+    const tooltipPortalSelectors = [
+        '.react-tooltip-content-wrapper', '[class*="react-tooltip" i]',
+        '[role="tooltip"]', '[data-radix-popper-content-wrapper]',
+        '[data-radix-tooltip-content]', '[data-slot="tooltip-content"]',
+        '[data-side][data-align]', '.tooltip', '.Tooltip',
+        '.tooltip-content', '.tooltipContent', '.popover',
+        '.popover-content', '.PopoverContent'
+    ];
 
     const BLOCKED_CLASSES = ['monaco-editor', 'editor-container', 'terminal', 'output-view', 'debug-console', 'code-view', 'artifact-container', 'suggest-widget'];
     const BLOCKED_TAGS = ['SCRIPT', 'STYLE', 'CODE', 'PRE', 'INPUT', 'TEXTAREA', 'SVG', 'CANVAS', 'SYMBOL', 'PATH'];
@@ -152,31 +181,163 @@ function generateJs() {
         return false;
     }
 
+    function translateString(originalVal) {
+        if (!originalVal || typeof originalVal !== 'string') return originalVal;
+        const valNorm = norm(originalVal);
+        if (!valNorm) return originalVal;
+        
+        const valLower = valNorm.toLowerCase();
+        let newVal = originalVal;
+
+        if (map.has(valNorm)) {
+            newVal = map.get(valNorm);
+        } else if (lowerMap.has(valLower)) {
+            newVal = lowerMap.get(valLower);
+        } else {
+            for (const [key, translated] of longEntries) {
+                if (key.length > 20 && valNorm.includes(key)) {
+                    newVal = newVal.split(key).join(translated);
+                }
+            }
+        }
+        return newVal;
+    }
+
+    function translateAttributes(el) {
+        if (!el || el.nodeType !== Node.ELEMENT_NODE) return;
+        const tag = el.tagName.toUpperCase();
+        if (BLOCKED_TAGS.includes(tag)) return;
+        if (isInBlockedZone(el)) return;
+
+        for (const attr of ['placeholder', 'title', 'aria-label']) {
+            const v = el.getAttribute(attr);
+            if (!v) continue;
+            const t = norm(v);
+            if (map.has(t)) {
+                el.setAttribute(attr, map.get(t));
+            } else if (lowerMap.has(t.toLowerCase())) {
+                el.setAttribute(attr, lowerMap.get(t.toLowerCase()));
+            }
+        }
+    }
+
+    function sweepAttributes(root) {
+        if (!root || !root.querySelectorAll) return;
+        const els = root.querySelectorAll('[title], [aria-label], [placeholder]');
+        for (const el of els) {
+            translateAttributes(el);
+        }
+    }
+
+    function hasTranslatableEnglishText(node) {
+        if (!node) return false;
+        const text = node.textContent || '';
+        if (!text) return false;
+        
+        for (const [key, translated] of map.entries()) {
+            if (key.length >= 3 && key !== translated && text.includes(key)) {
+                return true;
+            }
+        }
+        for (const [key, translated] of longEntries) {
+            if (key.length >= 3 && key !== translated && text.includes(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function translateTooltipNodeWithReadyCheck(node, attempt = 1) {
+        try {
+            translateNode(node);
+            translateAttributes(node);
+            sweepAttributes(node);
+        } finally {
+            try {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    const checkAndSetReady = () => {
+                        let hasEnglish = false;
+                        if (node.matches && node.matches('.react-tooltip-content-wrapper, [class*="react-tooltip" i]')) {
+                            if (hasTranslatableEnglishText(node)) hasEnglish = true;
+                        } else {
+                            const subTooltips = node.querySelectorAll('.react-tooltip-content-wrapper, [class*="react-tooltip" i]');
+                            for (const t of subTooltips) {
+                                if (hasTranslatableEnglishText(t)) hasEnglish = true;
+                            }
+                        }
+                        
+                        if (hasEnglish && attempt <= 5) {
+                            requestAnimationFrame(() => {
+                                translateTooltipNodeWithReadyCheck(node, attempt + 1);
+                            });
+                        } else {
+                            if (node.matches && node.matches('.react-tooltip-content-wrapper, [class*="react-tooltip" i]')) {
+                                node.setAttribute('data-ag-tooltip-ready', 'true');
+                            }
+                            const subTooltips = node.querySelectorAll('.react-tooltip-content-wrapper, [class*="react-tooltip" i]');
+                            for (const t of subTooltips) {
+                                t.setAttribute('data-ag-tooltip-ready', 'true');
+                            }
+                        }
+                    };
+                    checkAndSetReady();
+                }
+            } catch (e) {}
+        }
+    }
+
+    function translateTooltipPortals() {
+        try {
+            const portals = document.querySelectorAll(tooltipPortalSelectors.join(', '));
+            for (const portal of portals) {
+                if (!isInBlockedZone(portal)) {
+                    if (portal.matches('.react-tooltip-content-wrapper, [class*="react-tooltip" i]')) {
+                        translateTooltipNodeWithReadyCheck(portal);
+                    } else {
+                        translateNode(portal);
+                        translateAttributes(portal);
+                        sweepAttributes(portal);
+                    }
+                }
+            }
+        } catch (e) {}
+    }
+
+    function translateAroundPointer(e) {
+        try {
+            let el = e.target;
+            while (el && el !== document.body) {
+                translateAttributes(el);
+                el = el.parentElement;
+            }
+
+            if (e.clientX !== undefined && e.clientY !== undefined) {
+                const elsUnderPointer = document.elementsFromPoint(e.clientX, e.clientY);
+                for (const elem of elsUnderPointer) {
+                    translateAttributes(elem);
+                }
+            }
+
+            requestAnimationFrame(() => {
+                sweepAttributes(document.body);
+                translateTooltipPortals();
+            });
+            setTimeout(() => { sweepAttributes(document.body); translateTooltipPortals(); }, 0);
+            setTimeout(() => { sweepAttributes(document.body); translateTooltipPortals(); }, 30);
+            setTimeout(() => { sweepAttributes(document.body); translateTooltipPortals(); }, 80);
+            setTimeout(() => { sweepAttributes(document.body); translateTooltipPortals(); }, 150);
+            setTimeout(() => { sweepAttributes(document.body); translateTooltipPortals(); }, 300);
+        } catch (err) {}
+    }
+
     function translateNode(node) {
         try {
             if (!node || done.has(node)) return;
 
             if (node.nodeType === Node.ELEMENT_NODE) {
-                const tag = node.tagName.toUpperCase();
-                if (BLOCKED_TAGS.includes(tag)) return;
-
-                if (!isInBlockedZone(node)) {
-                    for (const attr of ['placeholder', 'title', 'aria-label']) {
-                        const v = node.getAttribute(attr);
-                        if (!v) continue;
-
-                        const t = norm(v);
-                        if (map.has(t)) {
-                            node.setAttribute(attr, map.get(t));
-                        } else if (lowerMap.has(t.toLowerCase())) {
-                            node.setAttribute(attr, lowerMap.get(t.toLowerCase()));
-                        }
-                    }
-                }
-
+                translateAttributes(node);
                 if (node.shadowRoot) translateNode(node.shadowRoot);
                 for (const child of node.childNodes) translateNode(child);
-
                 return;
             }
 
@@ -185,21 +346,7 @@ function generateJs() {
                 if (!originalVal || originalVal.trim().length < 1) return;
                 if (isInBlockedZone(node)) return;
 
-                let newVal = originalVal;
-                const valNorm = norm(originalVal);
-                const valLower = valNorm.toLowerCase();
-
-                if (map.has(valNorm)) {
-                    newVal = map.get(valNorm);
-                } else if (lowerMap.has(valLower)) {
-                    newVal = lowerMap.get(valLower);
-                } else {
-                    for (const [key, translated] of longEntries) {
-                        if (key.length > 20 && valNorm.includes(key)) {
-                            newVal = newVal.split(key).join(translated);
-                        }
-                    }
-                }
+                let newVal = translateString(originalVal);
 
                 if (newVal !== originalVal) {
                     node.nodeValue = newVal;
@@ -210,10 +357,36 @@ function generateJs() {
         } catch (e) {}
     }
 
+    let portalDebounce = null;
     const observer = new MutationObserver(mutations => {
+        let hasChildList = false;
         for (const m of mutations) {
             if (m.type === 'childList') {
-                for (const n of m.addedNodes) translateNode(n);
+                hasChildList = true;
+                for (const n of m.addedNodes) {
+                    translateNode(n);
+                    if (n.nodeType === Node.ELEMENT_NODE) {
+                        try {
+                            if (n.matches && n.matches('.react-tooltip-content-wrapper, [class*="react-tooltip" i]')) {
+                                n.removeAttribute('data-ag-tooltip-ready');
+                                translateTooltipNodeWithReadyCheck(n);
+                            } else if (n.querySelector && n.querySelector('.react-tooltip-content-wrapper, [class*="react-tooltip" i]')) {
+                                const tooltips = n.querySelectorAll('.react-tooltip-content-wrapper, [class*="react-tooltip" i]');
+                                for (const t of tooltips) {
+                                    t.removeAttribute('data-ag-tooltip-ready');
+                                    translateTooltipNodeWithReadyCheck(t);
+                                }
+                            }
+
+                            if (n.matches && n.matches(tooltipPortalSelectors.join(', '))) {
+                                translateNode(n);
+                                sweepAttributes(n);
+                            } else if (n.querySelector && n.querySelector(tooltipPortalSelectors.join(', '))) {
+                                translateTooltipPortals();
+                            }
+                        } catch(e) {}
+                    }
+                }
             } else if (m.type === 'characterData') {
                 translateNode(m.target);
             } else if (m.type === 'attributes') {
@@ -223,15 +396,21 @@ function generateJs() {
                     if (attr === 'title' || attr === 'aria-label' || attr === 'placeholder') {
                         const v = el.getAttribute(attr);
                         if (v) {
-                            const t = norm(v);
-                            if (map.has(t)) {
-                                el.setAttribute(attr, map.get(t));
-                            } else if (lowerMap.has(t.toLowerCase())) {
-                                el.setAttribute(attr, lowerMap.get(t.toLowerCase()));
+                            const translated = translateString(v);
+                            if (translated !== v) {
+                                el.setAttribute(attr, translated);
                             }
                         }
                     }
                 }
+            }
+        }
+        if (hasChildList) {
+            if (!portalDebounce) {
+                portalDebounce = setTimeout(() => {
+                    translateTooltipPortals();
+                    portalDebounce = null;
+                }, 50);
             }
         }
     });
@@ -245,6 +424,7 @@ function generateJs() {
         try {
             observer.observe(target, obsOpts);
             translateNode(target);
+            sweepAttributes(target);
         } catch (e) {}
     };
 
@@ -253,6 +433,17 @@ function generateJs() {
         const sr = origAttachShadow.apply(this, arguments);
         try { observer.observe(sr, obsOpts); } catch (e) {}
         return sr;
+    };
+
+    const origSetAttribute = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function(name, value) {
+        if (typeof value === 'string' && (name === 'title' || name === 'aria-label' || name === 'placeholder')) {
+            if (!isInBlockedZone(this) && !BLOCKED_TAGS.includes(this.tagName.toUpperCase())) {
+                const translated = translateString(value);
+                return origSetAttribute.call(this, name, translated);
+            }
+        }
+        return origSetAttribute.call(this, name, value);
     };
 
     if (document.readyState === 'loading') {
@@ -268,28 +459,9 @@ function generateJs() {
     setTimeout(startEngine, 3000);
     setTimeout(startEngine, 6000);
 
-    function hoverHandler(e) {
-        try {
-            let el = e.target;
-            if (!el || el.nodeType !== Node.ELEMENT_NODE) return;
-            const tag = el.tagName.toUpperCase();
-            if (BLOCKED_TAGS.includes(tag)) return;
-            if (isInBlockedZone(el)) return;
-            for (const attr of ['title', 'aria-label', 'placeholder']) {
-                const v = el.getAttribute(attr);
-                if (!v) continue;
-                const t = norm(v);
-                if (map.has(t)) {
-                    el.setAttribute(attr, map.get(t));
-                } else if (lowerMap.has(t.toLowerCase())) {
-                    el.setAttribute(attr, lowerMap.get(t.toLowerCase()));
-                }
-            }
-        } catch (e) {}
-    }
-    document.addEventListener('pointerover', hoverHandler, true);
-    document.addEventListener('mouseover', hoverHandler, true);
-    document.addEventListener('focusin', hoverHandler, true);
+    document.addEventListener('pointerover', translateAroundPointer, true);
+    document.addEventListener('mouseover', translateAroundPointer, true);
+    document.addEventListener('focusin', translateAroundPointer, true);
 })();
 ${SIGNATURE_END}`;
 
