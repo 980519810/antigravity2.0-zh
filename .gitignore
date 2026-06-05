@@ -1,0 +1,63 @@
+# ========================================================
+# Antigravity 2.0 繁體中文套件 - .gitignore
+# ========================================================
+
+# Dependency directories
+node_modules/
+
+# ASAR 工作暫存目錄
+_temp_asar/
+_verify_asar/
+
+# ASAR 檔案（不散布官方檔案）
+app.asar
+app.asar.bak
+*.bak
+
+# Release 打包輸出
+dist-release/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS
+.DS_Store
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage
+*.lcov
+.nyc_output
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# dotenv
+.env
+.env.test
+
+# npm
+.npm
+*.tgz
+
+# Codegraph（開發工具產生）
+.codegraph/
+.codegraphignore
+
+# Agent / Runtime 檔案
+**/AGENTS.md
+AGENTS.md
+RUNTIME.md
+.agents/
+docs/
+scripts/
