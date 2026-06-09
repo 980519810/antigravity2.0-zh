@@ -400,3 +400,15 @@ Windows 執行 `restore-win.bat`、macOS 執行 `restore-macos.command`，或使
 - 使用者應自行承擔修改本機應用程式資源的風險。
 - 所有注入操作均在使用者本機端執行，並提供完整還原機制。
 - 本專案依據 Apache License 2.0 以「現狀」（AS IS）提供，不附帶任何明示或暗示的保證。
+
+---
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=workkkkkkez00m%2Fantigravity2.0-zh-tw&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left" />
+ </picture>
+</a>
