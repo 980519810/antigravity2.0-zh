@@ -364,5 +364,22 @@
     "Enable Sandbox Mode (Preview)": "啟用沙盒模式（預覽）",
     "Restricts agent tools to a secure, isolated local sandbox.": "將 Agent 工具限制在安全且隔離的本機沙盒中。",
     "Artifact Review Policy": "Artifact 檢閱政策",
-    "Keyboard shortcuts for quick navigation and control.": "用於快速導覽與控制的鍵盤快捷鍵。"
+    "Keyboard shortcuts for quick navigation and control.": "用於快速導覽與控制的鍵盤快捷鍵。",
+
+    "Plan": "方案",
+    "Weekly Limit": "每週限制",
+    "Five Hour Limit": "五小時限制",
+    "Within each group, models share a weekly limit and a 5-hour limit. Quota is consumed proportionally to the cost of the tokens. Thus, limits will last longer with shorter tasks or using more cost-effective models. The 5-hour limit smooths out aggregate demand to fairly distribute global capacity across all users, while your weekly limit is tied directly to your individual tier.": "在同一群組中，各模型共享每週限制與五小時限制。配額的消耗與 Token 費用成比例。因此，使用較短的任務或成本效益更高的模型，限制將持續更長時間。五小時限制可平滑整體需求，以公平地將全球算力分配給所有使用者；而每週限制則直接與您個人的訂閱方案綁定。",
+
+    "Bug Report": "錯誤回報",
+    "Feature Request": "功能請求",
+    "Auth and Billing": "驗證與帳單",
+    "General Feedback": "一般意見回饋",
+    "Description": "描述",
+    "Please describe the issue in detail. The more actionable your feedback, the quicker our team can address your request. Some helpful information includes:": "請詳細描述問題。您的意見回饋越具體可行，我們的團隊就能越快處理您的請求。以下是一些有助於我們分析的資訊：",
+    "Steps to reproduce the issue": "問題重現步驟",
+    "Any error messages": "任何錯誤訊息",
+    "Any relevant information": "任何相關資訊",
+    "Attach a screenshot (optional)": "附上截圖（選填）",
+    "Attach Antigravity server logs": "附上 Antigravity 伺服器日誌"
 }
