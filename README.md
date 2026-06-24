@@ -1,6 +1,7 @@
 # Antigravity 2.0 繁體中文套件
 
 將 Antigravity 2.0 的介面翻譯為繁體中文。支援 Windows 與 macOS，提供一鍵安裝與完整還原。
+
 Antigravity 2.0 Traditional Chinese Localization Toolkit is an open-source project that translates the Antigravity 2.0 interface into Traditional Chinese. It works by unpacking and repacking the local Electron ASAR file, without modifying official core binaries or redistributing any official Antigravity files. The toolkit supports both Windows and macOS, provides one-click installation and full restoration, automatically creates backups, runs entirely on the user’s local machine, and carefully avoids translating code editors, terminals, input fields, debug consoles, and other areas where localization could interfere with development workflows.
 
 ---
