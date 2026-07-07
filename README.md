@@ -409,8 +409,8 @@ Windows 執行 `restore-win.bat`、macOS 執行 `restore-macos.command`，或使
 
 <a href="https://www.star-history.com/?repos=workkkkkkez00m%2Fantigravity2.0-zh-tw&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&theme=dark&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
  </picture>
 </a>
