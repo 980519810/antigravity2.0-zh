@@ -2,18 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const child_process = require('child_process');
 
-const PROJECT_ID = 'antigravity2-zh-hant-tw';
-const PROJECT_NAME = 'Antigravity 2.0 繁體中文套件';
+const PROJECT_ID = 'antigravity2.0-zh';
+const PROJECT_NAME = 'Antigravity 2.0 简体中文套件';
 const ENGINE_VERSION = '1.0.2';
-const SIGNATURE = 'ZH-HANT-TW';
+const SIGNATURE = 'ZH-HANS-CN';
 
-const SIGNATURE_START = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION START --- */';
-const SIGNATURE_END = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION END --- */';
+const SIGNATURE_START = '/* --- ANTIGRAVITY ZH-HANS-CN LOCALIZATION START --- */';
+const SIGNATURE_END = '/* --- ANTIGRAVITY ZH-HANS-CN LOCALIZATION END --- */';
+const LEGACY_SIGNATURE_START = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION START --- */';
+const LEGACY_SIGNATURE_END = '/* --- ANTIGRAVITY ZH-HANT-TW LOCALIZATION END --- */';
 
 /**
- * 解析本地 @electron/asar CLI 路徑。
- * 優先使用 node_modules/@electron/asar/bin/asar.js，若不存在則提示使用者先執行 npm install。
- * @returns {string|null} asar CLI 的絕對路徑，若找不到則回傳 null。
+ * 解析本地 @electron/asar CLI 路径。
+ * 优先使用 node_modules/@electron/asar/bin/asar.js，若不存在则提示用户先运行 npm install。
+ * @returns {string|null} asar CLI 的绝对路径，若找不到则返回 null。
  */
 function resolveAsarCli() {
     const localAsarPath = path.join(__dirname, 'node_modules', '@electron', 'asar', 'bin', 'asar.js');
@@ -24,17 +26,17 @@ function resolveAsarCli() {
 }
 
 /**
- * 使用本地 asar CLI 執行指令。
- * @param {string} action - asar 動作，例如 'extract' 或 'pack'
- * @param {string[]} args - 傳入 asar 的參數陣列
+ * 使用本地 asar CLI 运行命令。
+ * @param {string} action - asar 动作，例如 'extract' 或 'pack'
+ * @param {string[]} args - 传入 asar 的参数数组
  * @returns {{success: boolean, stdout: string, stderr: string}}
  */
 function runAsarCommand(action, args) {
     const asarCli = resolveAsarCli();
     if (!asarCli) {
-        console.error('[錯誤] 找不到本地 @electron/asar CLI。');
-        console.error('  請先在專案目錄執行 npm install，再重新執行安裝。');
-        return { success: false, stdout: '', stderr: '本地 @electron/asar 未安裝' };
+        console.error('[错误] 找不到本地 @electron/asar CLI。');
+        console.error('  请先在项目目录运行 npm install，再重新运行安装。');
+        return { success: false, stdout: '', stderr: '本地 @electron/asar 未安装' };
     }
 
     const nodeExe = process.execPath;
@@ -43,26 +45,26 @@ function runAsarCommand(action, args) {
 }
 
 /**
- * 環境檢查：確認必要工具是否存在。
- * @returns {boolean} 環境檢查是否通過
+ * 环境检查：确认必要工具是否存在。
+ * @returns {boolean} 环境检查是否通过
  */
 function checkEnvironment() {
-    // 檢查本地 @electron/asar CLI
+    // 检查本地 @electron/asar CLI
     const asarCli = resolveAsarCli();
     if (!asarCli) {
         console.error('');
         console.error('╔══════════════════════════════════════════════════════════╗');
-        console.error('║  [環境檢查] 找不到本地 @electron/asar CLI                ║');
+        console.error('║  [环境检查] 找不到本地 @electron/asar CLI                ║');
         console.error('║                                                          ║');
-        console.error('║  請先在專案根目錄執行：                                  ║');
+        console.error('║  请先在项目根目录运行：                                  ║');
         console.error('║    npm install                                            ║');
         console.error('║                                                          ║');
-        console.error('║  完成後再重新執行安裝腳本。                              ║');
+        console.error('║  完成后再重新运行安装脚本。                              ║');
         console.error('╚══════════════════════════════════════════════════════════╝');
         console.error('');
         return false;
     }
-    console.log(`[環境檢查] 本地 asar CLI 已就緒：${asarCli}`);
+    console.log(`[环境检查] 本地 asar CLI 已就绪：${asarCli}`);
     return true;
 }
 
@@ -80,7 +82,7 @@ function loadDictionary() {
     const dictsDir = path.join(__dirname, 'dicts');
 
     if (!fs.existsSync(dictsDir)) {
-        console.warn(`[警告] 找不到字典目錄：${dictsDir}`);
+        console.warn(`[警告] 找不到字典目录：${dictsDir}`);
         return totalMap;
     }
 
@@ -97,7 +99,7 @@ function loadDictionary() {
                 if (normK) totalMap[normK] = v;
             }
         } catch (e) {
-            console.warn(`[警告] 無法讀取字典檔：${file}`);
+            console.warn(`[警告] 无法读取字典文件：${file}`);
             console.warn(e.message);
         }
     }
@@ -114,13 +116,13 @@ function generateJs() {
 
     const jsSource = `${SIGNATURE_START}
 (() => {
-    if (window.__ANTIGRAVITY_ZH_TW_LOADED__) return;
-    window.__ANTIGRAVITY_ZH_TW_LOADED__ = true;
+    if (window.__ANTIGRAVITY_ZH_CN_LOADED__) return;
+    window.__ANTIGRAVITY_ZH_CN_LOADED__ = true;
 
     const injectStyle = () => {
-        if (!document.getElementById('ag-zh-hant-tooltip-style')) {
+        if (!document.getElementById('ag-zh-hans-tooltip-style')) {
             const style = document.createElement('style');
-            style.id = 'ag-zh-hant-tooltip-style';
+            style.id = 'ag-zh-hans-tooltip-style';
             style.textContent = \`
                 .react-tooltip-content-wrapper:not([data-ag-tooltip-ready="true"]),
                 [class*="react-tooltip" i]:not([data-ag-tooltip-ready="true"]) {
@@ -472,7 +474,8 @@ ${SIGNATURE_END}`;
 
 function cleanJsContent(content) {
     const regex = new RegExp(escapeRegExp(SIGNATURE_START) + '[\\s\\S]*?' + escapeRegExp(SIGNATURE_END), 'g');
-    return content.replace(regex, '');
+    const legacyRegex = new RegExp(escapeRegExp(LEGACY_SIGNATURE_START) + '[\\s\\S]*?' + escapeRegExp(LEGACY_SIGNATURE_END), 'g');
+    return content.replace(regex, '').replace(legacyRegex, '');
 }
 
 function cleanMenuJsContent(content) {
@@ -528,7 +531,7 @@ function escapeRegExp(string) {
 }
 
 function closeAntigravityProcesses() {
-    console.log('[1] 正在關閉 Antigravity，以避免檔案被占用...');
+    console.log('[1] 正在关闭 Antigravity，以避免文件被占用...');
 
     try {
         if (process.platform === 'win32') {
@@ -548,7 +551,7 @@ function detectInstallationDir(manualDir) {
             return path.resolve(manualDir);
         }
 
-        console.error(`[錯誤] 指定的安裝路徑不存在：${manualDir}`);
+        console.error(`[错误] 指定的安装路径不存在：${manualDir}`);
         process.exit(1);
     }
 
@@ -569,12 +572,12 @@ function detectInstallationDir(manualDir) {
 
     for (const candidate of candidates) {
         if (fs.existsSync(candidate)) {
-            console.log(`[偵測] 找到 Antigravity 安裝目錄：${candidate}`);
+            console.log(`[检测] 找到 Antigravity 安装目录：${candidate}`);
             return path.resolve(candidate);
         }
     }
 
-    console.error('[錯誤] 找不到 Antigravity 安裝目錄。請使用 --install-dir 指定路徑。');
+    console.error('[错误] 找不到 Antigravity 安装目录。请使用 --install-dir 指定路径。');
     process.exit(1);
 }
 
@@ -591,46 +594,46 @@ function createMenuTranslationPatch() {
     return `
     /* --- MENU TRANSLATION START --- */
     const translations = {
-        'File': '檔案',
-        'Edit': '編輯',
-        'View': '檢視',
-        'Window': '視窗',
-        'Help': '說明',
-        'New Window': '新增視窗',
-        'Create Project': '建立專案',
-        'Command Palette': '命令選擇區',
-        'Docs': '使用說明',
-        'Check for Updates': '檢查更新',
-        'Toggle Developer Tools': '切換開發者工具',
-        'Undo': '復原',
+        'File': '文件',
+        'Edit': '编辑',
+        'View': '查看',
+        'Window': '窗口',
+        'Help': '帮助',
+        'New Window': '添加窗口',
+        'Create Project': '创建项目',
+        'Command Palette': '命令选择区',
+        'Docs': '使用说明',
+        'Check for Updates': '检查更新',
+        'Toggle Developer Tools': '切换开发者工具',
+        'Undo': '撤销',
         'Redo': '重做',
-        'Cut': '剪下',
-        'Copy': '複製',
-        'Paste': '貼上',
-        'Select All': '全選',
+        'Cut': '剪切',
+        'Copy': '拷贝',
+        'Paste': '粘贴',
+        'Select All': '全选',
         'Minimize': '最小化',
         'Maximize': '最大化',
-        'Close': '關閉',
-        'Zoom': '縮放',
-        'Reset Zoom': '重設縮放',
+        'Close': '关闭',
+        'Zoom': '缩放',
+        'Reset Zoom': '重设缩放',
         'Zoom In': '放大',
-        'Zoom Out': '縮小',
-        'Toggle Full Screen': '切換全螢幕',
-        'Bring All to Front': '將所有視窗移至最前',
-        'Reload': '重新載入',
-        'Force Reload': '強制重新載入',
-        'Actual Size': '實際大小',
-        'Paste and Match Style': '貼上並符合樣式',
-        'Delete': '刪除',
-        'Substitutions': '替換',
-        'Show Substitutions': '顯示替換',
-        'Smart Quotes': '智慧引號',
-        'Smart Dashes': '智慧破折號',
-        'Text Replacement': '文字替換',
-        'Speech': '語音',
-        'Start Speaking': '開始朗讀',
-        'Stop Speaking': '停止朗讀',
-        'Close Window': '關閉視窗'
+        'Zoom Out': '缩小',
+        'Toggle Full Screen': '切换全屏幕',
+        'Bring All to Front': '将所有窗口移至最前',
+        'Reload': '重新加载',
+        'Force Reload': '强制重新加载',
+        'Actual Size': '实际大小',
+        'Paste and Match Style': '粘贴并符合样式',
+        'Delete': '删除',
+        'Substitutions': '替换',
+        'Show Substitutions': '显示替换',
+        'Smart Quotes': '智能引号',
+        'Smart Dashes': '智能破折号',
+        'Text Replacement': '文本替换',
+        'Speech': '语音',
+        'Start Speaking': '开始朗读',
+        'Stop Speaking': '停止朗读',
+        'Close Window': '关闭窗口'
     };
 
     function translateMenu(items) {
@@ -666,9 +669,9 @@ function createTrayCreatePatch() {
     return `function createTray(actions) {
     /* --- TRAY TRANSLATION START --- */
     const translations = {
-        'No agents running': '目前沒有執行中的 Agent',
-        'Open Antigravity': '開啟 Antigravity',
-        'Quit': '結束'
+        'No agents running': '目前没有运行中的 Agent',
+        'Open Antigravity': '打开 Antigravity',
+        'Quit': '结束'
     };
 
     for (const item of actions) {
@@ -684,11 +687,11 @@ function install20(resourcesDir) {
     const bakPath = path.join(resourcesDir, 'app.asar.bak');
 
     if (!fs.existsSync(asarPath)) {
-        console.error(`[錯誤] 在 resources 目錄中找不到 app.asar：${resourcesDir}`);
+        console.error(`[错误] 在 resources 目录中找不到 app.asar：${resourcesDir}`);
         return false;
     }
 
-    // 環境檢查：在執行任何破壞性操作前，先確認 asar CLI 可用
+    // 环境检查：在运行任何破坏性操作前，先确认 asar CLI 可用
     if (!checkEnvironment()) {
         return false;
     }
@@ -696,37 +699,37 @@ function install20(resourcesDir) {
     closeAntigravityProcesses();
 
     if (!fs.existsSync(bakPath)) {
-        console.log('[備份] 正在建立官方 app.asar 備份...');
+        console.log('[备份] 正在创建官方 app.asar 备份...');
         let backupOk = false;
         try {
             fs.copyFileSync(asarPath, bakPath);
             backupOk = true;
         } catch (copyErr) {
             if ((copyErr.code === 'EPERM' || copyErr.code === 'EACCES') && process.platform !== 'win32') {
-                console.warn(`[備份] fs.copyFileSync 失敗 (${copyErr.code})，嘗試以 /bin/cp -p 建立備份...`);
+                console.warn(`[备份] fs.copyFileSync 失败 (${copyErr.code})，尝试以 /bin/cp -p 创建备份...`);
                 const cpResult = runCommandSync(`/bin/cp -p "${asarPath}" "${bakPath}"`);
                 if (cpResult.success && fs.existsSync(bakPath)) {
                     backupOk = true;
-                    console.log('[備份] 以 /bin/cp -p 建立備份成功。');
+                    console.log('[备份] 以 /bin/cp -p 创建备份成功。');
                 } else {
-                    console.error('[錯誤] 備份失敗：無法建立 app.asar.bak。');
-                    console.error('  可能原因：macOS 權限限制或 .app 目錄權限不足。');
-                    console.error('  建議：');
-                    console.error('    1. 嘗試以具備權限的終端機執行本腳本');
-                    console.error('    2. 或手動建立備份：');
+                    console.error('[错误] 备份失败：无法创建 app.asar.bak。');
+                    console.error('  可能原因：macOS 权限限制或 .app 目录权限不足。');
+                    console.error('  建议：');
+                    console.error('    1. 尝试以具备权限的终端运行本脚本');
+                    console.error('    2. 或手动创建备份：');
                     console.error(`       cp "${asarPath}" "${bakPath}"`);
                     return false;
                 }
             } else {
-                console.error(`[錯誤] 備份失敗：${copyErr.message}`);
+                console.error(`[错误] 备份失败：${copyErr.message}`);
                 return false;
             }
         }
         if (backupOk) {
-            console.log('[備份] 備份完成。');
+            console.log('[备份] 备份完成。');
         }
     } else {
-        console.log('[備份] 已存在 app.asar.bak，本次沿用既有備份。');
+        console.log('[备份] 已存在 app.asar.bak，本次沿用既有备份。');
     }
 
     const tempDir = path.join(__dirname, '_temp_asar');
@@ -737,19 +740,19 @@ function install20(resourcesDir) {
     console.log('[解包] 正在解包 app.asar...');
     const extractRes = runAsarCommand('extract', [asarPath, tempDir]);
     if (!extractRes.success || !fs.existsSync(tempDir)) {
-        console.error('[錯誤] 解包失敗，請確認已執行 npm install 並確認 Node.js 可正常使用。');
-        console.error(`詳情：${extractRes.stderr}\n${extractRes.stdout}`);
+        console.error('[错误] 解包失败，请确认已运行 npm install 并确认 Node.js 可正常使用。');
+        console.error(`详情：${extractRes.stderr}\n${extractRes.stdout}`);
         return false;
     }
 
     const preloadPath = path.join(tempDir, 'dist', 'preload.js');
     if (!fs.existsSync(preloadPath)) {
-        console.error(`[錯誤] 解包後找不到 preload.js：${preloadPath}`);
+        console.error(`[错误] 解包后找不到 preload.js：${preloadPath}`);
         fs.rmSync(tempDir, { recursive: true, force: true });
         return false;
     }
 
-    console.log('[修改] 正在注入繁體中文台灣用語字典...');
+    console.log('[修改] 正在注入简体中文字典...');
     const preloadContent = fs.readFileSync(preloadPath, 'utf-8');
     const cleanedPreload = cleanJsContent(preloadContent);
     const translationJs = generateJs();
@@ -758,7 +761,7 @@ function install20(resourcesDir) {
 
     const menuPath = path.join(tempDir, 'dist', 'menu.js');
     if (fs.existsSync(menuPath)) {
-        console.log('[修改] 正在注入系統選單文字...');
+        console.log('[修改] 正在注入系统菜单文本...');
         const menuContent = fs.readFileSync(menuPath, 'utf-8');
         const menuCleaned = cleanMenuJsContent(menuContent);
         const menuTranslationJs = createMenuTranslationPatch();
@@ -769,15 +772,15 @@ function install20(resourcesDir) {
         if (idx !== -1) {
             const patchedMenuContent = menuCleaned.substring(0, idx) + menuTranslationJs + '\n    ' + menuCleaned.substring(idx);
             fs.writeFileSync(menuPath, patchedMenuContent, 'utf-8');
-            console.log('[修改] 系統選單文字注入完成。');
+            console.log('[修改] 系统菜单文本注入完成。');
         } else {
-            console.warn('[警告] 找不到 menu.js 插入點，略過系統選單文字注入。');
+            console.warn('[警告] 找不到 menu.js 插入点，略过系统菜单文本注入。');
         }
     }
 
     const trayPath = path.join(tempDir, 'dist', 'tray.js');
     if (fs.existsSync(trayPath)) {
-        console.log('[修改] 正在注入工作列選單文字...');
+        console.log('[修改] 正在注入任务栏菜单文本...');
         const trayContent = fs.readFileSync(trayPath, 'utf-8');
         const trayCleaned = cleanTrayJsContent(trayContent);
 
@@ -787,24 +790,24 @@ function install20(resourcesDir) {
         let trayPatched = trayCleaned.replace(targetCreate, replacementCreate);
 
         const countRegex = /countItem\.label\s*=\s*\([\s\S]*?' running';/g;
-        const replacementCount = "countItem.label = count > 0 ? `${count} 個 Agent 執行中` : '目前沒有執行中的 Agent';";
+        const replacementCount = "countItem.label = count > 0 ? `${count} 个 Agent 运行中` : '目前没有运行中的 Agent';";
         trayPatched = trayPatched.replace(countRegex, replacementCount);
 
         fs.writeFileSync(trayPath, trayPatched, 'utf-8');
-        console.log('[修改] 工作列選單文字注入完成。');
+        console.log('[修改] 任务栏菜单文本注入完成。');
     }
 
     const loadingPath = path.join(tempDir, 'dist', 'loadingOverlay.js');
     if (fs.existsSync(loadingPath)) {
-        console.log('[修改] 正在調整啟動畫面文字...');
+        console.log('[修改] 正在调整启动画面文本...');
         let loadingContent = fs.readFileSync(loadingPath, 'utf-8');
 
         const targetText = '<div class="text">Loading Antigravity</div>';
-        const replacementText = '<div class="text">正在啟動 Antigravity...</div>';
+        const replacementText = '<div class="text">正在启动 Antigravity...</div>';
         loadingContent = loadingContent.replace(targetText, replacementText);
 
         fs.writeFileSync(loadingPath, loadingContent, 'utf-8');
-        console.log('[修改] 啟動畫面文字調整完成。');
+        console.log('[修改] 启动画面文本调整完成。');
     }
 
     console.log('[打包] 正在重新打包 app.asar...');
@@ -812,12 +815,12 @@ function install20(resourcesDir) {
     fs.rmSync(tempDir, { recursive: true, force: true });
 
     if (!packRes.success) {
-        console.error('[錯誤] 打包失敗。');
-        console.error(`詳情：${packRes.stderr}\n${packRes.stdout}`);
+        console.error('[错误] 打包失败。');
+        console.error(`详情：${packRes.stderr}\n${packRes.stdout}`);
         return false;
     }
 
-    console.log(`[完成] ${PROJECT_NAME} 已套用完成。`);
+    console.log(`[完成] ${PROJECT_NAME} 已应用完成。`);
     return true;
 }
 
@@ -826,16 +829,16 @@ function restore20(resourcesDir) {
     const bakPath = path.join(resourcesDir, 'app.asar.bak');
 
     if (!fs.existsSync(bakPath)) {
-        console.log('[提示] 找不到 app.asar.bak，可能尚未套用過本工具，或備份已被移除。');
+        console.log('[提示] 找不到 app.asar.bak，可能尚未应用过本工具，或备份已被移除。');
         return false;
     }
 
     closeAntigravityProcesses();
 
-    console.log('[還原] 正在還原官方 app.asar...');
+    console.log('[还原] 正在还原官方 app.asar...');
     fs.copyFileSync(bakPath, asarPath);
     fs.unlinkSync(bakPath);
-    console.log('[完成] 官方 app.asar 已還原。');
+    console.log('[完成] 官方 app.asar 已还原。');
     return true;
 }
 
@@ -889,7 +892,7 @@ function main() {
     const resourcesDir = locateResourcesDir(installDir);
 
     if (!fs.existsSync(resourcesDir)) {
-        console.error(`[錯誤] 無法定位有效的 resources 目錄：${resourcesDir}`);
+        console.error(`[错误] 无法定位有效的 resources 目录：${resourcesDir}`);
         process.exit(1);
     }
 
@@ -897,15 +900,15 @@ function main() {
     const bakPath = path.join(resourcesDir, 'app.asar.bak');
 
     if (!fs.existsSync(asarPath) && !(restore && fs.existsSync(bakPath))) {
-        console.error('[錯誤] 找不到 app.asar。本工具僅支援 Antigravity 2.0。');
+        console.error('[错误] 找不到 app.asar。本工具仅支持 Antigravity 2.0。');
         process.exit(1);
     }
 
     if (restore) {
-        console.log(`====== 正在還原 ${PROJECT_NAME} ======`);
+        console.log(`====== 正在还原 ${PROJECT_NAME} ======`);
         restore20(resourcesDir);
     } else {
-        console.log(`====== 正在套用 ${PROJECT_NAME} ======`);
+        console.log(`====== 正在应用 ${PROJECT_NAME} ======`);
         install20(resourcesDir);
     }
 }

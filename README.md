@@ -1,251 +1,251 @@
-# Antigravity 2.0 繁體中文套件
+# Antigravity 2.0 简体中文套件
 
-將 Antigravity 2.0 的介面翻譯為繁體中文。支援 Windows 與 macOS，提供一鍵安裝與完整還原。
+将 Antigravity 2.0 的界面翻译为简体中文。支持 Windows 与 macOS，提供一键安装与完整还原。
 
-Antigravity 2.0 Traditional Chinese Localization Toolkit is an open-source project that translates the Antigravity 2.0 interface into Traditional Chinese. It works by unpacking and repacking the local Electron ASAR file, without modifying official core binaries or redistributing any official Antigravity files. The toolkit supports both Windows and macOS, provides one-click installation and full restoration, automatically creates backups, runs entirely on the user’s local machine, and carefully avoids translating code editors, terminals, input fields, debug consoles, and other areas where localization could interfere with development workflows.
-
----
-
-## 簡介
-
-**Antigravity 2.0 繁體中文套件**是一套開源的介面本地化工具，透過 ASAR 解包與重新打包機制，將 Antigravity 2.0 的英文介面翻譯為繁體中文。
-
-- 不修改官方核心二進位檔案
-- 不散布官方 `app.asar` 或任何官方檔案
-- 支援一鍵安裝與完整還原
-- 所有操作在使用者本機端執行
+Antigravity 2.0 Simplified Chinese Localization Toolkit is an open-source project that translates the Antigravity 2.0 interface into Simplified Chinese. It works by unpacking and repacking the local Electron ASAR file, without modifying official core binaries or redistributing any official Antigravity files. The toolkit supports both Windows and macOS, provides one-click installation and full restoration, automatically creates backups, runs entirely on the user’s local machine, and carefully avoids translating code editors, terminals, input fields, debug consoles, and other areas where localization could interfere with development workflows.
 
 ---
 
-## 使用畫面
+## 简介
 
-### 主介面
+**Antigravity 2.0 简体中文套件**是一套开源的界面本地化工具，通过 ASAR 解包与重新打包机制，将 Antigravity 2.0 的英文界面翻译为简体中文。
 
-![Antigravity 2.0 繁體中文主介面](images/screenshot-main-ui.JPG)
-
-### 設定頁
-
-![Antigravity 2.0 繁體中文設定頁](images/screenshot-settings.JPG)
+- 不修改官方内核二进制文件
+- 不分发官方 `app.asar` 或任何官方文件
+- 支持一键安装与完整还原
+- 所有操作在用户本机端运行
 
 ---
 
-## 下載方式
+## 使用画面
 
-### 方式一：GitHub Releases（推薦）
+### 主界面
 
-前往本專案的 [GitHub Releases](../../releases) 頁面，下載最新版本的 `.zip` 壓縮檔。
+![Antigravity 2.0 简体中文主界面](images/screenshot-main-ui.JPG)
 
-1. 下載 `antigravity2-zh-hant-v*.zip`
-2. 解壓縮到任意目錄
-3. 在解壓縮後的目錄中執行：
+### 设置页
+
+![Antigravity 2.0 简体中文设置页](images/screenshot-settings.JPG)
+
+---
+
+## 下载方式
+
+### 方式一：GitHub Releases（推荐）
+
+前往本项目的 [GitHub Releases](../../releases) 页面，下载最新版本的 `.zip` 压缩包。
+
+1. 下载 `antigravity2-zh-hans-v*.zip`
+2. 解压缩到任意目录
+3. 在解压缩后的目录中运行：
 
 ```bash
 npm install
 ```
 
-> ⚠️ **注意**：請下載完整的 `.zip` 檔案，不要只下載單一的 `.bat` 或 `.command` 檔案。安裝腳本需要搭配 `localization_engine.js`、`dicts/` 字典目錄與 `package.json` 等檔案才能正常運作。
+> ⚠️ **注意**：请下载完整的 `.zip` 文件，不要只下载单一的 `.bat` 或 `.command` 文件。安装脚本需要搭配 `localization_engine.js`、`dicts/` 字典目录与 `package.json` 等文件才能正常运行。
 
-> ⚠️ **注意**：Releases zip 中不包含 `node_modules/`，因此解壓縮後仍需執行 `npm install` 安裝依賴套件。
+> ⚠️ **注意**：Releases zip 中不包含 `node_modules/`，因此解压缩后仍需运行 `npm install` 安装依赖套件。
 
 ### 方式二：Git Clone
 
 ```bash
-git clone https://github.com/<owner>/antigravity2.0-zh-tw.git
-cd antigravity2-zh-hant-tw
+git clone https://github.com/980519810/antigravity2.0-zh.git
+cd antigravity2.0-zh
 npm install
 ```
 
-> 請將 `<owner>` 替換為實際的 GitHub 帳號名稱。
+> 请将 `<owner>` 替换为实际的 GitHub 账号名称。
 
 ---
 
 ## 功能特色
 
-- 🌐 **繁體中文介面**：涵蓋主介面、設定頁、Agent 管理、MCP／知識庫頁面等多個區域
-- 🖥️ **跨平台支援**：同時支援 Windows 與 macOS
-- 🔧 **一鍵安裝**：雙擊腳本即可完成安裝，無需手動操作
-- 🔄 **完整還原**：隨時可還原為官方英文原版
-- 🛡️ **安全備份**：首次安裝時自動備份官方 `app.asar`
-- 📦 **離線運作**：使用本地 `@electron/asar`，不依賴 `npx` 動態下載
-- 🎯 **精準翻譯**：自動避開程式碼區、Terminal、編輯器等不應翻譯的區域
+- 🌐 **简体中文界面**：涵盖主界面、设置页、Agent 管理、MCP／知识库页面等多个区域
+- 🖥️ **跨平台支持**：同时支持 Windows 与 macOS
+- 🔧 **一键安装**：双击脚本即可完成安装，无需手动操作
+- 🔄 **完整还原**：随时可还原为官方英文原版
+- 🛡️ **安全备份**：首次安装时自动备份官方 `app.asar`
+- 📦 **离线运行**：使用本地 `@electron/asar`，不依赖 `npx` 动态下载
+- 🎯 **精准翻译**：自动避开代码区、Terminal、编辑器等不应翻译的区域
 
 ---
 
-## 重要提醒：官方軟體更新後須重新安裝
+## 重要提醒：官方软件更新后须重新安装
 
-> ⚠️ **每次 Antigravity 官方釋出更新後，繁體中文介面可能會消失。這是正常現象。**
+> ⚠️ **每次 Antigravity 官方发布更新后，简体中文界面可能会消失。这是正常现象。**
 
-Antigravity 官方更新時，會重新覆蓋 `app.asar` 檔案，導致先前注入的繁體中文本地化內容被移除。
+Antigravity 官方更新时，会重新覆盖 `app.asar` 文件，导致先前注入的简体中文本地化内容被移除。
 
-**這是正常情況，並非套件故障。**
+**这是正常情况，并非套件故障。**
 
-只要在更新後重新執行安裝腳本，即可恢復繁體中文介面：
+只要在更新后重新运行安装脚本，即可恢复简体中文界面：
 
-- **Windows**：雙擊執行 `install-win.bat`
-- **macOS**：雙擊執行 `install-macos.command`
+- **Windows**：双击运行 `install-win.bat`
+- **macOS**：双击运行 `install-macos.command`
 
-> 💡 建議在每次 Antigravity 更新完成後，養成重新執行安裝腳本的習慣。
+> 💡 建议在每次 Antigravity 更新完成后，养成重新运行安装脚本的习惯。
 
 ---
 
-## 支援狀態
+## 支持状态
 
-| 平台 | 安裝 | 還原 | UI 驗證 | 備註 |
+| 平台 | 安装 | 还原 | UI 验证 | 备注 |
 |------|------|------|---------|------|
-| macOS | ✅ 已通過 | ✅ 已通過 | ✅ 已通過 | 實機驗證完成 |
-| Windows | ✅ 已通過 | ✅ 已通過 | ✅ 已通過 | 實機驗證完成 |
+| macOS | ✅ 已通过 | ✅ 已通过 | ✅ 已通过 | 实机验证完成 |
+| Windows | ✅ 已通过 | ✅ 已通过 | ✅ 已通过 | 实机验证完成 |
 
-> 翻譯範圍持續補齊中。若在使用過程中發現未翻譯的文字，歡迎回報。
+> 翻译范围持续补齐中。若在使用过程中发现未翻译的文本，欢迎报告。
 
 ---
 
 ## 使用前需求
 
-使用本套件前，請確認已安裝以下工具：
+使用本套件前，请确认已安装以下工具：
 
-| 需求項目 | 說明 |
+| 需求项目 | 说明 |
 |----------|------|
-| **Antigravity 2.0** | 本套件的翻譯對象，需先安裝 Antigravity |
-| **Node.js LTS** | 前往 [nodejs.org](https://nodejs.org/) 下載安裝（安裝時會一併安裝 npm） |
-| **npm** | 隨 Node.js 一同安裝，用於安裝本地依賴 |
+| **Antigravity 2.0** | 本套件的翻译对象，需先安装 Antigravity |
+| **Node.js LTS** | 前往 [nodejs.org](https://nodejs.org/) 下载安装（安装时会一并安装 npm） |
+| **npm** | 随 Node.js 一同安装，用于安装本地依赖 |
 
 ### 首次使用前
 
-在專案根目錄執行一次：
+在项目根目录运行一次：
 
 ```bash
 npm install
 ```
 
-此步驟會安裝本地 `@electron/asar` 套件，用於 ASAR 解包與重新打包。本套件使用本地安裝的 `@electron/asar`，不依賴 `npx` 動態下載，確保離線環境也能正常運作。
+此步骤会安装本地 `@electron/asar` 套件，用于 ASAR 解包与重新打包。本套件使用本地安装的 `@electron/asar`，不依赖 `npx` 动态下载，确保离线环境也能正常运行。
 
 ---
 
-## 快速開始
+## 快速开始
 
 ```bash
-# 1. 確認已安裝 Node.js 與 npm
+# 1. 确认已安装 Node.js 与 npm
 node -v
 npm -v
 
-# 2. 安裝依賴（僅首次需要）
+# 2. 安装依赖（仅首次需要）
 npm install
 
-# 3. 完全退出 Antigravity，然後執行安裝腳本
-#    Windows：雙擊 install-win.bat
-#    macOS：雙擊 install-macos.command
+# 3. 完全退出 Antigravity，然后运行安装脚本
+#    Windows：双击 install-win.bat
+#    macOS：双击 install-macos.command
 
-# 4. 重新啟動 Antigravity，即可看到繁體中文介面
+# 4. 重新启动 Antigravity，即可看到简体中文界面
 ```
 
 ---
 
-## Windows 安裝
+## Windows 安装
 
-### 前置確認
+### 前置确认
 
-開啟**命令提示字元**或 **PowerShell**，確認 Node.js 與 npm 已可使用：
+打开**命令提示字符**或 **PowerShell**，确认 Node.js 与 npm 已可使用：
 
 ```cmd
 node -v
 npm -v
 ```
 
-若上述指令能正確輸出版本號，接著在專案目錄執行：
+若上述命令能正确输出版本号，接着在项目目录运行：
 
 ```cmd
 npm install
 ```
 
-### 安裝繁體中文
+### 安装简体中文
 
-1. **完全退出** Antigravity 軟體。
-2. 在本套件資料夾中，**雙擊執行 `install-win.bat`**。
-3. 執行完成後，重新啟動 Antigravity，即可看到繁體中文介面。
+1. **完全退出** Antigravity 软件。
+2. 在本套件文件夹中，**双击运行 `install-win.bat`**。
+3. 运行完成后，重新启动 Antigravity，即可看到简体中文界面。
 
-### 手動指定安裝路徑
+### 手动指定安装路径
 
-若 Antigravity 的安裝位置與預設不同，可使用以下方式手動指定：
+若 Antigravity 的安装位置与默认不同，可使用以下方式手动指定：
 
 ```cmd
-node localization_engine.js --install-dir "C:\Users\<你的使用者名稱>\AppData\Local\Programs\antigravity"
+node localization_engine.js --install-dir "C:\Users\<你的用户名>\AppData\Local\Programs\antigravity"
 ```
 
-### Windows 常見問題
+### Windows 常见问题
 
 <details>
-<summary><strong>node.exe 存取被拒（Access Denied）</strong></summary>
+<summary><strong>node.exe 访问被拒（Access Denied）</strong></summary>
 
-若執行 `node -v` 時出現「存取被拒」，通常代表系統 PATH 上的 `node.exe` 指向異常位置（例如 Windows App 安裝目錄）。解決方式：
+若运行 `node -v` 时出现「访问被拒」，通常代表系统 PATH 上的 `node.exe` 指向异常位置（例如 Windows App 安装目录）。解决方式：
 
-1. 移除現有 Node.js 安裝
-2. 從 [nodejs.org](https://nodejs.org/) 重新下載 LTS 版本安裝
-3. 安裝完成後重新開啟終端機，確認 `node -v` 正常輸出版本號
+1. 移除现有 Node.js 安装
+2. 从 [nodejs.org](https://nodejs.org/) 重新下载 LTS 版本安装
+3. 安装完成后重新打开终端，确认 `node -v` 正常输出版本号
 </details>
 
 <details>
 <summary><strong>npm 不存在</strong></summary>
 
-npm 隨 Node.js 一併安裝。若 `npm -v` 無法使用，請重新安裝 Node.js LTS 版本。安裝時確認勾選 npm 相關選項。
+npm 随 Node.js 一并安装。若 `npm -v` 无法使用，请重新安装 Node.js LTS 版本。安装时确认勾选 npm 相关选项。
 </details>
 
 <details>
-<summary><strong>Antigravity 安裝路徑不同</strong></summary>
+<summary><strong>Antigravity 安装路径不同</strong></summary>
 
-引擎預設搜尋 `%LOCALAPPDATA%\Programs\antigravity`。若你的 Antigravity 安裝在其他位置，請使用 `--install-dir` 參數手動指定。
+引擎默认搜索 `%LOCALAPPDATA%\Programs\antigravity`。若你的 Antigravity 安装在其他位置，请使用 `--install-dir` 参数手动指定。
 </details>
 
 ---
 
-## macOS 安裝
+## macOS 安装
 
-### 前置確認
+### 前置确认
 
-開啟 **Terminal**，確認 Node.js 與 npm 已可使用：
+打开 **Terminal**，确认 Node.js 与 npm 已可使用：
 
 ```bash
 node -v
 npm -v
 ```
 
-若上述指令能正確輸出版本號，接著在專案目錄執行：
+若上述命令能正确输出版本号，接着在项目目录运行：
 
 ```bash
 npm install
 ```
 
-### 安裝繁體中文
+### 安装简体中文
 
-1. **完全退出** Antigravity 軟體（選單列 → Antigravity → Quit，或 `Cmd+Q`）。
-2. 在 Finder 中找到本套件資料夾，**雙擊執行 `install-macos.command`**。
-   - 若系統提示「無法驗證開發者」，請在 Finder 中對檔案按右鍵 → **開啟**。
-3. 執行完成後，重新啟動 Antigravity，即可看到繁體中文介面。
+1. **完全退出** Antigravity 软件（菜单列 → Antigravity → Quit，或 `Cmd+Q`）。
+2. 在 Finder 中找到本套件文件夹，**双击运行 `install-macos.command`**。
+   - 若系统提示「无法验证开发者」，请在 Finder 中对文件按右键 → **打开**。
+3. 运行完成后，重新启动 Antigravity，即可看到简体中文界面。
 
-### .command 無法執行
+### .command 无法运行
 
-若 `.command` 檔案雙擊無反應，請先在 Terminal 中授予執行權限：
+若 `.command` 文件双击无反应，请先在 Terminal 中授予运行权限：
 
 ```bash
 chmod +x install-macos.command restore-macos.command
 ```
 
-### 手動指定安裝路徑
+### 手动指定安装路径
 
-若 Antigravity 的安裝位置與預設不同，可使用以下方式手動指定：
+若 Antigravity 的安装位置与默认不同，可使用以下方式手动指定：
 
 ```bash
 node localization_engine.js --install-dir "/Applications/Antigravity.app"
 ```
 
-### macOS EPERM/EACCES 備份說明
+### macOS EPERM/EACCES 备份说明
 
-首次安裝時，引擎會建立 `app.asar.bak` 備份檔。在某些 macOS 環境下可能遇到權限問題：
+首次安装时，引擎会创建 `app.asar.bak` 备份文件。在某些 macOS 环境下可能遇到权限问题：
 
-1. 引擎會先嘗試 `fs.copyFileSync` 建立備份
-2. 若遇到 **EPERM** 或 **EACCES** 錯誤，會自動 fallback 到 `/bin/cp -p` 作為備援
-3. 本套件**不會自動執行 `sudo`**
+1. 引擎会先尝试 `fs.copyFileSync` 创建备份
+2. 若遇到 **EPERM** 或 **EACCES** 错误，会自动 fallback 到 `/bin/cp -p` 作为备援
+3. 本套件**不会自动运行 `sudo`**
 
-若 fallback 仍失敗，可手動建立備份後再執行安裝：
+若 fallback 仍失败，可手动创建备份后再运行安装：
 
 ```bash
 cp "/Applications/Antigravity.app/Contents/Resources/app.asar" \
@@ -254,11 +254,11 @@ cp "/Applications/Antigravity.app/Contents/Resources/app.asar" \
 
 ---
 
-## 還原官方原版
+## 还原官方原版
 
 ### Windows
 
-雙擊執行 `restore-win.bat`，或在命令列執行：
+双击运行 `restore-win.bat`，或在命令行运行：
 
 ```cmd
 node localization_engine.js --restore
@@ -266,7 +266,7 @@ node localization_engine.js --restore
 
 ### macOS
 
-雙擊執行 `restore-macos.command`，或在 Terminal 執行：
+双击运行 `restore-macos.command`，或在 Terminal 运行：
 
 ```bash
 node localization_engine.js --restore
@@ -274,143 +274,143 @@ node localization_engine.js --restore
 
 ### 通用方式
 
-任何平台均可使用以下指令還原：
+任何平台均可使用以下命令还原：
 
 ```bash
 node localization_engine.js --restore
 ```
 
-> 還原時，引擎會使用首次安裝時建立的 `app.asar.bak` 回復官方原版。還原完成後，備份檔會被移除。
+> 还原时，引擎会使用首次安装时创建的 `app.asar.bak` 恢复官方原版。还原完成后，备份文件会被移除。
 
 ---
 
-## 翻譯範圍
+## 翻译范围
 
-### 已翻譯區域
+### 已翻译区域
 
-| 區域 | 說明 |
+| 区域 | 说明 |
 |------|------|
-| 主介面文字 | 側邊欄、頂部導覽、一般按鈕與標籤 |
-| 設定頁 | 完整設定面板、權限控制、子選單 |
-| Agent / Workspace | Agent 管理頁面、工作區頁面 |
-| MCP / Knowledge | MCP 伺服器與知識庫管理頁面 |
-| 系統選單 | 標題列選單（檔案、編輯、檢視、視窗、說明） |
-| 工作列 / 選單文字 | 工作列右鍵選單、Agent 狀態顯示 |
-| 啟動畫面文字 | 載入動畫文字 |
-| 鍵盤快捷鍵頁 | 快捷鍵描述與分類 |
+| 主界面文本 | 侧边栏、顶部导航、一般按钮与标签 |
+| 设置页 | 完整设置面板、权限控制、子菜单 |
+| Agent / Workspace | Agent 管理页面、工作区页面 |
+| MCP / Knowledge | MCP 服务器与知识库管理页面 |
+| 系统菜单 | 标题列菜单（文件、编辑、查看、窗口、说明） |
+| 任务栏 / 菜单文本 | 任务栏右键菜单、Agent 状态显示 |
+| 启动画面文本 | 加载动画文本 |
+| 键盘快捷键页 | 快捷键描述与分类 |
 
-> 目前共 **617 個翻譯詞彙**。
+> 目前共 **617 个翻译词汇**。
 
-### 不翻譯區域
+### 不翻译区域
 
-以下區域會自動避開翻譯，以確保使用體驗不受影響：
+以下区域会自动避开翻译，以确保使用体验不受影响：
 
-- 程式碼區（Monaco Editor）
-- Terminal / 終端機
-- 輸入框（`<input>`、`<textarea>`、`contenteditable`）
-- `<code>`、`<pre>` 區塊
-- SVG / Canvas 圖形元素
+- 代码区（Monaco Editor）
+- Terminal / 终端
+- 输入框（`<input>`、`<textarea>`、`contenteditable`）
+- `<code>`、`<pre>` 区块
+- SVG / Canvas 图形元素
 - Debug Console
-- Suggest Widget（自動完成選單）
+- Suggest Widget（自动完成菜单）
 
 ---
 
-## 常見問題
+## 常见问题
 
 <details>
-<summary><strong>為什麼需要 npm install？</strong></summary>
+<summary><strong>为什么需要 npm install？</strong></summary>
 
-本套件使用 `@electron/asar` 進行 ASAR 解包與重新打包。`npm install` 會將此工具安裝到本地 `node_modules/` 目錄，使安裝腳本能夠正常運作。只需在首次使用時執行一次。
+本套件使用 `@electron/asar` 进行 ASAR 解包与重新打包。`npm install` 会将此工具安装到本地 `node_modules/` 目录，使安装脚本能够正常运行。只需在首次使用时运行一次。
 </details>
 
 <details>
-<summary><strong>沒有 Node.js 可以用嗎？</strong></summary>
+<summary><strong>没有 Node.js 可以用吗？</strong></summary>
 
-目前不行。本地化引擎以 Node.js 撰寫，需要 Node.js 執行 ASAR 解包、注入與重新打包。請前往 [nodejs.org](https://nodejs.org/) 安裝 LTS 版本。
+目前不行。本地化引擎以 Node.js 撰写，需要 Node.js 运行 ASAR 解包、注入与重新打包。请前往 [nodejs.org](https://nodejs.org/) 安装 LTS 版本。
 </details>
 
 <details>
-<summary><strong>npx is not recognized 怎麼辦？</strong></summary>
+<summary><strong>npx is not recognized 怎么办？</strong></summary>
 
-本套件已改用本地 `@electron/asar`，不再依賴 `npx`。請確認已在專案根目錄執行 `npm install`，即可正常運作。
+本套件已改用本地 `@electron/asar`，不再依赖 `npx`。请确认已在项目根目录运行 `npm install`，即可正常运行。
 </details>
 
 <details>
-<summary><strong>node.exe 存取被拒怎麼辦？</strong></summary>
+<summary><strong>node.exe 访问被拒怎么办？</strong></summary>
 
-此問題通常出現在 Windows，代表系統 PATH 上的 `node.exe` 指向異常位置。請移除現有 Node.js，從 [nodejs.org](https://nodejs.org/) 重新下載 LTS 版本安裝，然後重新開啟終端機確認。
+此问题通常出现在 Windows，代表系统 PATH 上的 `node.exe` 指向异常位置。请移除现有 Node.js，从 [nodejs.org](https://nodejs.org/) 重新下载 LTS 版本安装，然后重新打开终端确认。
 </details>
 
 <details>
-<summary><strong>Antigravity 更新後翻譯不見了怎麼辦？</strong></summary>
+<summary><strong>Antigravity 更新后翻译不见了怎么办？</strong></summary>
 
-Antigravity 官方更新時，會重新覆蓋 `app.asar` 檔案，導致先前注入的繁體中文本地化內容被移除。這是正常現象，並非套件故障。
+Antigravity 官方更新时，会重新覆盖 `app.asar` 文件，导致先前注入的简体中文本地化内容被移除。这是正常现象，并非套件故障。
 
-解決方式：
+解决方式：
 
 1. 完全退出 Antigravity
-2. 重新執行安裝腳本（Windows：`install-win.bat`；macOS：`install-macos.command`）
-3. 重新啟動 Antigravity，即可恢復繁體中文介面
+2. 重新运行安装脚本（Windows：`install-win.bat`；macOS：`install-macos.command`）
+3. 重新启动 Antigravity，即可恢复简体中文界面
 </details>
 
 <details>
-<summary><strong>如何還原官方原版？</strong></summary>
+<summary><strong>如何还原官方原版？</strong></summary>
 
-Windows 執行 `restore-win.bat`、macOS 執行 `restore-macos.command`，或使用 `node localization_engine.js --restore`。還原時會使用 `app.asar.bak` 回復官方原版。
+Windows 运行 `restore-win.bat`、macOS 运行 `restore-macos.command`，或使用 `node localization_engine.js --restore`。还原时会使用 `app.asar.bak` 恢复官方原版。
 </details>
 
 <details>
-<summary><strong>是否會修改官方 app.asar？</strong></summary>
+<summary><strong>是否会修改官方 app.asar？</strong></summary>
 
-是的，安裝過程會解包 `app.asar`、注入翻譯程式碼後重新打包。但首次安裝時會自動建立 `app.asar.bak` 備份，可隨時還原為官方原版。
+是的，安装过程会解包 `app.asar`、注入翻译代码后重新打包。但首次安装时会自动创建 `app.asar.bak` 备份，可随时还原为官方原版。
 </details>
 
 <details>
-<summary><strong>是否會散布官方 app.asar？</strong></summary>
+<summary><strong>是否会分发官方 app.asar？</strong></summary>
 
-不會。本專案不包含、不散布 Antigravity 官方 `app.asar` 或任何官方二進位檔案。所有操作均在使用者本機端執行。
+不会。本项目不包含、不分发 Antigravity 官方 `app.asar` 或任何官方二进制文件。所有操作均在用户本机端运行。
 </details>
 
 <details>
-<summary><strong>為什麼 PROJECT_ID / SIGNATURE 還是 zh-hant-tw？</strong></summary>
+<summary><strong>能否覆盖安装旧版繁体中文套件？</strong></summary>
 
-`PROJECT_ID`（`antigravity2-zh-hant-tw`）與 `SIGNATURE`（`ZH-HANT-TW`）作為內部技術識別碼，用於套件名稱與注入區塊的清理邏輯。若變更這些識別碼，會導致舊版注入區塊無法被正確清理。因此保留原有識別碼以維持向下相容。
+可以。简体中文套件使用 `ZH-HANS-CN` 标识，并会同时清理旧版 `ZH-HANT-TW` 注入区块，避免重复注入。
 </details>
 
 ---
 
-## 注意事項
+## 注意事项
 
-1. **請先退出 Antigravity 再操作**：執行安裝或還原腳本前，請確認已完全退出 Antigravity，避免檔案被占用。
-2. **Antigravity 更新後需重新套用**：官方更新會覆蓋 `app.asar`，更新後請重新執行安裝腳本。
-3. **macOS Gatekeeper**：首次執行 `.command` 檔案時，若系統提示「無法驗證開發者」，請在 Finder 中對檔案按右鍵 → 開啟。
-4. **Windows 權限**：若出現「存取被拒」，請對 `.bat` 檔案按右鍵 → **以系統管理員身份執行**。
-5. **不要以 sudo 執行**：本套件不會自動使用 `sudo`，也不建議以 root 身份執行腳本。
-
----
-
-## 授權
-
-本專案採用 [Apache License 2.0](LICENSE) 授權。
+1. **请先退出 Antigravity 再操作**：运行安装或还原脚本前，请确认已完全退出 Antigravity，避免文件被占用。
+2. **Antigravity 更新后需重新应用**：官方更新会覆盖 `app.asar`，更新后请重新运行安装脚本。
+3. **macOS Gatekeeper**：首次运行 `.command` 文件时，若系统提示「无法验证开发者」，请在 Finder 中对文件按右键 → 打开。
+4. **Windows 权限**：若出现「访问被拒」，请对 `.bat` 文件按右键 → **以系统管理员身份运行**。
+5. **不要以 sudo 运行**：本套件不会自动使用 `sudo`，也不建议以 root 身份运行脚本。
 
 ---
 
-## 免責聲明
+## 授权
 
-- 本專案為非官方社群工具，與 Antigravity 官方無關。
-- 本專案**不包含、不散布** Antigravity 官方 `app.asar` 或任何官方二進位檔案。
-- 使用者應自行承擔修改本機應用程式資源的風險。
-- 所有注入操作均在使用者本機端執行，並提供完整還原機制。
-- 本專案依據 Apache License 2.0 以「現狀」（AS IS）提供，不附帶任何明示或暗示的保證。
+本项目采用 [Apache License 2.0](LICENSE) 授权。
+
+---
+
+## 免责声明
+
+- 本项目为非官方社群工具，与 Antigravity 官方无关。
+- 本项目**不包含、不分发** Antigravity 官方 `app.asar` 或任何官方二进制文件。
+- 用户应自行承担修改本机应用程序资源的风险。
+- 所有注入操作均在用户本机端运行，并提供完整还原机制。
+- 本项目依据 Apache License 2.0 以「现状」（AS IS）提供，不附带任何明示或暗示的保证。
 
 ---
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=workkkkkkez00m%2Fantigravity2.0-zh-tw&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=980519810%2Fantigravity2.0-zh&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&theme=dark&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=workkkkkkez00m/antigravity2.0-zh-tw&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=980519810/antigravity2.0-zh&type=date&theme=dark&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=980519810/antigravity2.0-zh&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=980519810/antigravity2.0-zh&type=date&legend=top-left&sealed_token=8BX3uVdcxrgacqJbvz-9Lxu21TButD7FsX7yjqynCmr75KKe31G5qt6Vbw75FkV3cyiAGL7q6ZAPolbbqPn8KgeVnRW5998Mte_Vosou1K2eIOUoMIGVO9WsyE09yWvlEItj9lSxJYUuBft8Z_Ti45r65Aq0nEQ-ij3sfY-mOJPKRK0l6kI2tXCFuzwp" />
  </picture>
 </a>

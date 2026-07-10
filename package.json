@@ -1,8 +1,8 @@
 {
-  "name": "antigravity2-zh-hant-tw",
+  "name": "antigravity2.0-zh",
   "version": "1.0.2",
   "private": true,
-  "description": "Antigravity 2.0 繁體中文套件",
+  "description": "Antigravity 2.0 简体中文套件",
   "scripts": {
     "check": "node --check localization_engine.js",
     "version": "node localization_engine.js --version",
