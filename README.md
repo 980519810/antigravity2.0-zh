@@ -17,18 +17,6 @@ Antigravity 2.0 Simplified Chinese Localization Toolkit is an open-source projec
 
 ---
 
-## 使用画面
-
-### 主界面
-
-![Antigravity 2.0 简体中文主界面](images/screenshot-main-ui.JPG)
-
-### 设置页
-
-![Antigravity 2.0 简体中文设置页](images/screenshot-settings.JPG)
-
----
-
 ## 下载方式
 
 ### 方式一：GitHub Releases（推荐）
